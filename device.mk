@@ -96,7 +96,7 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/media/bootanimation.zip:/system/media/bootanimation.zip
 endif
 
-PRODUCT_PROPERTY_OVERRIDES := \
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=160 \
     persist.lab126.chargeprotect=1 \
     ro.sf.hwrotation=270 \
