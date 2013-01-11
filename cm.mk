@@ -5,7 +5,7 @@ TARGET_SCREEN_HEIGHT := 1024
 $(call inherit-product-if-exists, vendor/cm/config/common_full_tablet_wifionly.mk)
 
 # Inherit device configuration for Kindle Fire
-$(call inherit-product, device/amazon/otter2/full_otter.mk)
+$(call inherit-product, device/amazon/otter2/full_otter2.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/amazon/otter2/overlay/cm
 
