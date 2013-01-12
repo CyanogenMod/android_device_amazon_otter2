@@ -15,8 +15,9 @@ USE_CAMERA_STUB := true
 -include vendor/amazon/otter/BoardConfigVendor.mk
 
 # Kernel
-BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_CMDLINE := mem=1G console=/dev/null
+BOARD_KERNEL_PAGESIZE := 2048
+#BOARD_KERNEL_CMDLINE := mem=1G console=/dev/null
+BOARD_KERNEL_CMDLINE := init=/init vram=5M omapfb.vram=0:5M console=ttyO2,115200n8 androidboot.console=ttyO2 omap_wdt.timer_margin=3
 TARGET_BOOTLOADER_BOARD_NAME := otter2
 TARGET_OTA_ASSERT_DEVICE := blaze_tablet,otter2
 
