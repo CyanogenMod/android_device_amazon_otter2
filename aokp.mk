@@ -1,10 +1,10 @@
 # Inherit device configuration for AMZ Otter
-$(call inherit-product, device/amazon/otter/full_otter2.mk)
+$(call inherit-product, device/amazon/otter2/full_otter2.mk)
 
 # Inherit common product files.
 $(call inherit-product, vendor/aokp/configs/common_tablet.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/amazon/otter/overlay/aokp
+DEVICE_PACKAGE_OVERLAYS += device/amazon/otter2/overlay/aokp
 
 # Setup device specific product configuration.
 PRODUCT_NAME := aokp_otter2

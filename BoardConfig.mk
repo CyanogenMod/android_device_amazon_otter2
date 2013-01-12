@@ -1,7 +1,8 @@
 DEVICE_FOLDER := device/amazon/otter2
+COMMON_FOLDER := device/amazon/omap4-common
 
 # inherit from common
--include device/amazon/omap4-common/BoardConfigCommon.mk
+-include $(COMMON_FOLDER)/BoardConfigCommon.mk
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := false
@@ -20,8 +21,8 @@ TARGET_BOOTLOADER_BOARD_NAME := otter2
 TARGET_OTA_ASSERT_DEVICE := blaze_tablet,otter2
 
 # Kernel Build
-TARGET_KERNEL_SOURCE := kernel/amazon/otter-common
-TARGET_KERNEL_CONFIG := otter2_android_defconfig
+#TARGET_KERNEL_SOURCE := kernel/amazon/otter-common
+#TARGET_KERNEL_CONFIG := otter2_android_defconfig
 
 WLAN_MODULES:
 	make clean -C hardware/ti/wlan/mac80211/compat_wl12xx
@@ -64,13 +65,28 @@ endif
 # Graphics
 BOARD_EGL_CFG := $(DEVICE_FOLDER)/prebuilt/etc/egl.cfg
 
+# OTA Packaging / Bootimg creation
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_FOLDER)/boot.mk
+
+# hack the ota
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./$(DEVICE_FOLDER)/releasetools/bowser_ota_from_target_files
+# not tested at all
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./$(DEVICE_FOLDER)/releasetools/bowser_img_from_target_files
+
 # Recovery
 TARGET_RECOVERY_INITRC := $(DEVICE_FOLDER)/recovery/init.recovery.rc
-TARGET_RECOVERY_PRE_COMMAND := "echo 0 > /sys/block/mmcblk0boot0/force_ro; echo -n 7 | dd of=/dev/block/mmcblk0boot0 bs=1 count=1 seek=4104 ; 
+TARGET_RECOVERY_PRE_COMMAND := "echo 0 > /sys/block/mmcblk0boot0/force_ro; echo -n 7 | dd of=/dev/block/mmcblk0boot0 bs=1 count=1 seek=4104 ; sync"
 
 # TWRP Config
 DEVICE_RESOLUTION := 1024x600
 RECOVERY_TOUCHSCREEN_SWAP_XY := true
 RECOVERY_TOUCHSCREEN_FLIP_Y := true
+TW_NO_REBOOT_BOOTLOADER := true
+TW_NO_REBOOT_RECOVERY := true
+TW_INTERNAL_STORAGE_PATH := "/data/media"
+TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+#BOARD_HAS_NO_REAL_SDCARD := true
+RECOVERY_SDCARD_ON_DATA := true
+TW_ALWAYS_RMRF := true
 TARGET_USERIMAGES_USE_EXT4 := true
 

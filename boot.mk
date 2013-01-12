@@ -1,5 +1,7 @@
-OTTER2_BOOTLOADER := device/amazon/otter2/prebuilt/boot/u-boot.bin
-OTTER2_BOOT_CERT_FILE := device/amazon/otter2/prebuilt/boot/boot_cert
+DEVICE_FOLDER := device/amazon/otter2
+
+OTTER2_BOOTLOADER := $(DEVICE_FOLDER)/prebuilt/boot/u-boot.bin
+OTTER2_BOOT_CERT_FILE := $(DEVICE_FOLDER)/prebuilt/boot/boot_cert
 OTTER2_BOOT_ADDRESS := '\x00\x50\x7c\x80'
 OTTER2_STACK_FILE := /tmp/stack.tmp
 

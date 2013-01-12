@@ -16,6 +16,4 @@ PRODUCT_MODEL := Amazon Kindle Fire2
 PRODUCT_MANUFACTURER := Amazon
 PRODUCT_RELEASE_NAME := KFire2
 
-PRODUCT_PACKAGES += \
-    su \
 
