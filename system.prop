@@ -1,4 +1,4 @@
-ro.cwm.forbid_format = /bootloader,/dfs,/backup,/splash
+ro.cwm.forbid_format = /bootloader,/xloader,/misc
 
 #define defaults for audio D/A mic and power mode
 omap.audio.mic.main=AMic0    
