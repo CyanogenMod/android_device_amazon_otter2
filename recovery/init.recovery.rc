@@ -29,9 +29,6 @@ on boot
     # reduce backlight usage in recovery
     write /sys/class/backlight/lcd-backlight/brightness 200
 
-    # compatibility w/ 2.6 kernels
-    symlink /dev/block/platform/omap/omap_hsmmc.1 /dev/block/platform/mmci-omap-hs.1
-
     ifup lo
     hostname localhost
     domainname localdomain
@@ -49,8 +46,8 @@ service adbd /sbin/adbd recovery
 # In recovery, always run adbd as root.
 on property:ro.debuggable=1
     write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 18D1
-    write /sys/class/android_usb/android0/idProduct 6868
+    write /sys/class/android_usb/android0/idVendor 1949
+    write /sys/class/android_usb/android0/idProduct 0004
     write /sys/class/android_usb/android0/functions mass_storage,adb
 #    write /sys/class/android_usb/android0/enable 1
     write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
