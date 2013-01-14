@@ -22,8 +22,8 @@ TARGET_BOOTLOADER_BOARD_NAME := otter2
 TARGET_OTA_ASSERT_DEVICE := blaze_tablet,otter2
 
 # Kernel Build
-#TARGET_KERNEL_SOURCE := kernel/amazon/otter-common
-#TARGET_KERNEL_CONFIG := otter2_android_defconfig
+TARGET_KERNEL_SOURCE := kernel/amazon/otter-common
+TARGET_KERNEL_CONFIG := otter2_android_defconfig
 
 WLAN_MODULES:
 	make clean -C hardware/ti/wlan/mac80211/compat_wl12xx
