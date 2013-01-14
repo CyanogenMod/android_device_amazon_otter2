@@ -57,7 +57,7 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt /system/etc/firmware
 PRODUCT_COPY_FILES += \
-    $(COMMON_FOLDER)/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin \
+    $(DEVICE_FOLDER)/prebuilt/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin \
     $(COMMON_FOLDER)/firmware/ti-connectivity/wl127x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
     $(COMMON_FOLDER)/firmware/ti-connectivity/wl127x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
     $(COMMON_FOLDER)/firmware/ti-connectivity/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
@@ -68,7 +68,6 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/etc/audio_policy.conf:/system/etc/audio_policy.conf \
     $(DEVICE_FOLDER)/prebuilt/etc/media_codecs.xml:/system/etc/media_codecs.xml \
     $(DEVICE_FOLDER)/prebuilt/etc/media_profiles.xml:/system/etc/media_profiles.xml \
-    $(DEVICE_FOLDER)/prebuilt/etc/mountd.conf:/system/etc/mountd.conf \
     $(DEVICE_FOLDER)/prebuilt/etc/vold.fstab:/system/etc/vold.fstab \
     $(DEVICE_FOLDER)/prebuilt/etc/wifi/TQS_S_2.6.ini:/system/etc/wifi/TQS_S_2.6.ini \
 
@@ -87,7 +86,9 @@ PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory \
     Superuser \
-    su
+    su \
+    sdcard \
+    setup_fs
 
 # AOSP specific
 ifeq ($(TARGET_PRODUCT),full_otter2)
