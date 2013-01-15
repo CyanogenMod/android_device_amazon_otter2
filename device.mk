@@ -54,10 +54,11 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/bin/battery_log.sh:system/bin/battery_log.sh \
     $(DEVICE_FOLDER)/prebuilt/bin/klog.sh:system/bin/klog.sh \
     $(DEVICE_FOLDER)/prebuilt/bin/temperature_log.sh:system/bin/temperature_log.sh \
+    $(DEVICE_FOLDER)/prebuilt/bin/idme:system/bin/idme \
 
 # Prebuilt /system/etc/firmware
 PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/prebuilt/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin \
+    $(DEVICE_FOLDER)/prebuilt/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin.bak \
     $(COMMON_FOLDER)/firmware/ti-connectivity/wl127x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
     $(COMMON_FOLDER)/firmware/ti-connectivity/wl127x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
     $(COMMON_FOLDER)/firmware/ti-connectivity/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
@@ -81,6 +82,7 @@ PRODUCT_COPY_FILES += \
 # Prebuilt /system/lib
 PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/lib/sensors.otter2.so:system/lib/hw/sensors.otter2.so \
+    $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:system/lib/libidme.so \
 
 PRODUCT_PACKAGES += \
     librs_jni \
