@@ -84,6 +84,11 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/lib/sensors.otter2.so:system/lib/hw/sensors.otter2.so \
     $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:system/lib/libidme.so \
 
+# Recovery /sbin/
+PRODUCT_COPY_FILES += \
+    $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:$(TARGET_RECOVERY_OUT)/root/sbin/libidme.so \
+    $(DEVICE_FOLDER)/recovery/idme:$(TARGET_RECOVERY_OUT)/root/sbin/idme \
+
 PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory \
