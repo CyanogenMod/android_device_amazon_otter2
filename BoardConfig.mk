@@ -75,7 +75,7 @@ TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./$(DEVICE_FOLDER)/releasetools/bow
 
 # Recovery
 TARGET_RECOVERY_INITRC := $(DEVICE_FOLDER)/recovery/init.recovery.rc
-TARGET_RECOVERY_PRE_COMMAND := "idme bootmode 7;"
+TARGET_RECOVERY_PRE_COMMAND := "/system/bin/idme bootmode 7; sync;"
 
 # TWRP Config
 DEVICE_RESOLUTION := 1024x600
