@@ -109,5 +109,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.lab126.chargeprotect=1 \
     ro.sf.hwrotation=270 \
 
-$(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 $(call inherit-product-if-exists, $(COMMON_FOLDER)/imgtec/sgx-imgtec-bins-540.mk)
