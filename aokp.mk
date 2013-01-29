@@ -1,10 +1,6 @@
 # Inherit device configuration for AMZ Otter
 $(call inherit-product, device/amazon/otter2/full_otter2.mk)
-
-# Inherit common product files.
-$(call inherit-product, vendor/aokp/configs/common_tablet.mk)
-
-DEVICE_PACKAGE_OVERLAYS += device/amazon/otter2/overlay/aokp
+$(call inherit-product, device/amazon/otter-common/aokp.mk)
 
 # Setup device specific product configuration.
 PRODUCT_NAME := aokp_otter2
@@ -13,7 +9,4 @@ PRODUCT_BRAND := Android
 PRODUCT_MODEL := Amazon Kindle Fire2
 PRODUCT_MANUFACTURER := Amazon
 PRODUCT_RELEASE_NAME := KFire2
-
-PRODUCT_COPY_FILES +=  \
-    vendor/aokp/prebuilt/bootanimation/bootanimation_600_1024.zip:system/media/bootanimation.zip
 
