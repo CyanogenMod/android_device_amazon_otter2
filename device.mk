@@ -17,25 +17,13 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/init.omap4430.rc:/root/init.omap4430.rc \
     $(DEVICE_FOLDER)/init.omap4430.usb.rc:/root/init.omap4430.usb.rc
 
-# Prebuilts /system/bin
+# Misc scripts
 PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/bin/fix-mac.sh:/system/bin/fix-mac.sh \
-    $(DEVICE_FOLDER)/prebuilt/bin/idme:system/bin/idme
-
-# Prebuilts /system/etc
-PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/etc/vold.fstab:/system/etc/vold.fstab
-
-# Prebuilt /system/lib
-PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:system/lib/libidme.so \
-    $(DEVICE_FOLDER)/prebuilt/lib/sensors.otter2.so:system/lib/hw/sensors.otter2.so
-
-# Recovery /sbin/
-#PRODUCT_COPY_FILES += \
-#    $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:$(TARGET_RECOVERY_OUT)/root/sbin/libidme.so \
-#    $(DEVICE_FOLDER)/recovery/idme:$(TARGET_RECOVERY_OUT)/root/sbin/idme
 
 PRODUCT_PACKAGES += \
     sdcard \
     setup_fs
+
+$(call inherit-product-if-exists, vendor/amazon/otter2/otter2-vendor.mk)
