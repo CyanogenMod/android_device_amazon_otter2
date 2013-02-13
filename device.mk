@@ -28,6 +28,7 @@ PRODUCT_PACKAGES += \
 
 # Rootfs
 PRODUCT_COPY_FILES += \
+    $(DEVICE_FOLDER)/fstab.otter2:/root/fstab.otter2 \
     $(DEVICE_FOLDER)/init.omap4430.rc:/root/init.omap4430.rc \
     $(DEVICE_FOLDER)/init.omap4430.usb.rc:/root/init.omap4430.usb.rc
 
