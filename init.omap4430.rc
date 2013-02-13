@@ -29,9 +29,7 @@ on fs
     mkdir /factory 0775 radio radio
     mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/system /system wait rw
     mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/system /system ro remount
-    mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/userdata /data wait noatime nosuid nodev nomblk_io_submit,commit=20,barrier=0
-    mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/cache /cache wait noatime nosuid nodev nomblk_io_submit,commit=20,barrier=0
-    mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/efs /factory wait nomblk_io_submit,commit=20,barrier=0
+    mount_all /fstab.otter2
     setprop ro.crypto.fuse_sdcard true
 
 # pvr module
