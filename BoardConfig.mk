@@ -44,7 +44,7 @@ TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./$(DEVICE_FOLDER)/releasetools/bow
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./$(DEVICE_FOLDER)/releasetools/bowser_img_from_target_files
 
 # Recovery
-TARGET_RECOVERY_INITRC := $(DEVICE_FOLDER)/recovery/init.recovery.rc
+TARGET_RECOVERY_INITRC := $(DEVICE_FOLDER)/init.recovery.rc
 TARGET_RECOVERY_PRE_COMMAND := "idme bootmode 7; \#"
 
 # TWRP Config
