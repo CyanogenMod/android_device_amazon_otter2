@@ -51,3 +51,8 @@ PRODUCT_PACKAGES += \
     sdcard \
     setup_fs
 
+# Device settings
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.usb.vid=1949 \
+    sys.usb.pid=000a
+
