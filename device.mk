@@ -33,6 +33,10 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/init.omap4430.rc:/root/init.omap4430.rc \
     $(DEVICE_FOLDER)/init.omap4430.usb.rc:/root/init.omap4430.usb.rc
 
+# Recovery Trigger / TS module/config
+PRODUCT_COPY_FILES += \
+    $(DEVICE_FOLDER)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
+
 # Prebuilt system/bin
 PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/bin/fix-mac.sh:/system/bin/fix-mac.sh \
