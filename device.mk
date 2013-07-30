@@ -29,7 +29,7 @@ PRODUCT_PACKAGES += \
 
 # Rootfs
 PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/fstab.otter2:/root/fstab.otter2 \
+    $(DEVICE_FOLDER)/fstab.otter2:/root/fstab.omap4430 \
     $(DEVICE_FOLDER)/init.omap4430.rc:/root/init.omap4430.rc \
     $(DEVICE_FOLDER)/init.omap4430.usb.rc:/root/init.omap4430.usb.rc
 
@@ -44,7 +44,6 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt system/etc
 PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/prebuilt/etc/vold.fstab:/system/etc/vold.fstab \
     $(DEVICE_FOLDER)/prebuilt/etc/firmware/ducati-m3.bin:/system/etc/firmware/ducati-m3.bin
 
 # Prebuilt system/lib
