@@ -15,4 +15,3 @@
 #
 
 PRODUCT_MAKEFILES := $(LOCAL_DIR)/full_otter2.mk
-

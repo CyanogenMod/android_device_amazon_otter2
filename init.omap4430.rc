@@ -18,8 +18,8 @@ on init
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
 
     # create removable USB Mass Storage mountpoints
-    mkdir /storage/usb0 0000 system system
-    mkdir /storage/usb1 0000 system system
+    mkdir /storage/usb0 0555 root root
+    mkdir /storage/usb1 0555 root root
 
 on fs
     mkdir /factory 0775 radio radio
