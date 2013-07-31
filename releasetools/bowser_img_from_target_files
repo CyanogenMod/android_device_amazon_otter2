@@ -47,50 +47,10 @@ import zipfile
 if not hasattr(os, "SEEK_SET"):
   os.SEEK_SET = 0
 
+import build_image
 import common
 
 OPTIONS = common.OPTIONS
-
-def AddUserdata(output_zip):
-  """Create an empty userdata image and store it in output_zip."""
-
-  print "creating userdata.img..."
-
-  # The name of the directory it is making an image out of matters to
-  # mkyaffs2image.  So we create a temp dir, and within it we create an
-  # empty dir named "data", and build the image from that.
-  temp_dir = tempfile.mkdtemp()
-  user_dir = os.path.join(temp_dir, "data")
-  os.mkdir(user_dir)
-  img = tempfile.NamedTemporaryFile()
-
-  build_command = []
-  fstab = OPTIONS.info_dict["fstab"]
-  if fstab and fstab["/data"].fs_type.startswith("ext"):
-    build_command = ["mkuserimg.sh"]
-    if "extfs_sparse_flag" in OPTIONS.info_dict:
-      build_command.append(OPTIONS.info_dict["extfs_sparse_flag"])
-    build_command.extend([user_dir, img.name,
-                     fstab["/data"].fs_type, "data"])
-    if "userdata_size" in OPTIONS.info_dict:
-      build_command.append(str(OPTIONS.info_dict["userdata_size"]))
-  else:
-    build_command = ["mkyaffs2image", "-f"]
-    extra = OPTIONS.info_dict.get("mkyaffs2_extra_flags", None)
-    if extra:
-      build_command.extend(extra.split())
-    build_command.append(user_dir)
-    build_command.append(img.name)
-
-  p = common.Run(build_command);
-  p.communicate()
-  assert p.returncode == 0, "build userdata.img image failed"
-
-  common.CheckSize(img.name, "userdata.img", OPTIONS.info_dict)
-  output_zip.write(img.name, "userdata.img")
-  img.close()
-  os.rmdir(user_dir)
-  os.rmdir(temp_dir)
 
 
 def AddSystem(output_zip):
@@ -115,28 +75,14 @@ def AddSystem(output_zip):
     if (e.errno == errno.EEXIST):
       pass
 
-  build_command = []
+  image_props = build_image.ImagePropFromGlobalDict(OPTIONS.info_dict,
+                                                    "system")
   fstab = OPTIONS.info_dict["fstab"]
-  if fstab and fstab["/system"].fs_type.startswith("ext"):
-
-    build_command = ["mkuserimg.sh"]
-    if "extfs_sparse_flag" in OPTIONS.info_dict:
-      build_command.append(OPTIONS.info_dict["extfs_sparse_flag"])
-    build_command.extend([os.path.join(OPTIONS.input_tmp, "system"), img.name,
-                     fstab["/system"].fs_type, "system"])
-    if "system_size" in OPTIONS.info_dict:
-      build_command.append(str(OPTIONS.info_dict["system_size"]))
-  else:
-    build_command = ["mkyaffs2image", "-f"]
-    extra = OPTIONS.info_dict.get("mkyaffs2_extra_flags", None)
-    if extra:
-      build_command.extend(extra.split())
-    build_command.append(os.path.join(OPTIONS.input_tmp, "system"))
-    build_command.append(img.name)
-
-  p = common.Run(build_command)
-  p.communicate()
-  assert p.returncode == 0, "build system.img image failed"
+  if fstab:
+    image_props["fs_type" ] = fstab["/system"].fs_type
+  succ = build_image.BuildImage(os.path.join(OPTIONS.input_tmp, "system"),
+                                image_props, img.name)
+  assert succ, "build system.img image failed"
 
   img.seek(os.SEEK_SET, 0)
   data = img.read()
@@ -144,6 +90,110 @@ def AddSystem(output_zip):
 
   common.CheckSize(data, "system.img", OPTIONS.info_dict)
   common.ZipWriteStr(output_zip, "system.img", data)
+
+
+def AddVendor(output_zip):
+  """Turn the contents of VENDOR into vendor.img and store it in
+  output_zip."""
+
+  image_props = build_image.ImagePropFromGlobalDict(OPTIONS.info_dict,
+                                                    "vendor")
+  # The build system has to explicitly request for vendor.img.
+  if "fs_type" not in image_props:
+    return
+
+  print "creating vendor.img..."
+
+  img = tempfile.NamedTemporaryFile()
+
+  # The name of the directory it is making an image out of matters to
+  # mkyaffs2image.  It wants "vendor" but we have a directory named
+  # "VENDOR", so create a symlink or an empty directory if VENDOR does not
+  # exist.
+  if not os.path.exists(os.path.join(OPTIONS.input_tmp, "vendor")):
+    if os.path.exists(os.path.join(OPTIONS.input_tmp, "VENDOR")):
+      os.symlink(os.path.join(OPTIONS.input_tmp, "VENDOR"),
+                 os.path.join(OPTIONS.input_tmp, "vendor"))
+    else:
+      os.mkdir(os.path.join(OPTIONS.input_tmp, "vendor"))
+
+  img = tempfile.NamedTemporaryFile()
+
+  fstab = OPTIONS.info_dict["fstab"]
+  if fstab:
+    image_props["fs_type" ] = fstab["/vendor"].fs_type
+  succ = build_image.BuildImage(os.path.join(OPTIONS.input_tmp, "vendor"),
+                                image_props, img.name)
+  assert succ, "build vendor.img image failed"
+
+  common.CheckSize(img.name, "vendor.img", OPTIONS.info_dict)
+  output_zip.write(img.name, "vendor.img")
+  img.close()
+
+
+def AddUserdata(output_zip):
+  """Create an empty userdata image and store it in output_zip."""
+
+  image_props = build_image.ImagePropFromGlobalDict(OPTIONS.info_dict,
+                                                    "data")
+  # If no userdata_size is provided for extfs, skip userdata.img.
+  if (image_props.get("fs_type", "").startswith("ext") and
+      not image_props.get("partition_size")):
+    return
+
+  print "creating userdata.img..."
+
+  # The name of the directory it is making an image out of matters to
+  # mkyaffs2image.  So we create a temp dir, and within it we create an
+  # empty dir named "data", and build the image from that.
+  temp_dir = tempfile.mkdtemp()
+  user_dir = os.path.join(temp_dir, "data")
+  os.mkdir(user_dir)
+  img = tempfile.NamedTemporaryFile()
+
+  fstab = OPTIONS.info_dict["fstab"]
+  if fstab:
+    image_props["fs_type" ] = fstab["/data"].fs_type
+  succ = build_image.BuildImage(user_dir, image_props, img.name)
+  assert succ, "build userdata.img image failed"
+
+  common.CheckSize(img.name, "userdata.img", OPTIONS.info_dict)
+  output_zip.write(img.name, "userdata.img")
+  img.close()
+  os.rmdir(user_dir)
+  os.rmdir(temp_dir)
+
+
+def AddCache(output_zip):
+  """Create an empty cache image and store it in output_zip."""
+
+  image_props = build_image.ImagePropFromGlobalDict(OPTIONS.info_dict,
+                                                    "cache")
+  # The build system has to explicitly request for cache.img.
+  if "fs_type" not in image_props:
+    return
+
+  print "creating cache.img..."
+
+  # The name of the directory it is making an image out of matters to
+  # mkyaffs2image.  So we create a temp dir, and within it we create an
+  # empty dir named "cache", and build the image from that.
+  temp_dir = tempfile.mkdtemp()
+  user_dir = os.path.join(temp_dir, "cache")
+  os.mkdir(user_dir)
+  img = tempfile.NamedTemporaryFile()
+
+  fstab = OPTIONS.info_dict["fstab"]
+  if fstab:
+    image_props["fs_type" ] = fstab["/cache"].fs_type
+  succ = build_image.BuildImage(user_dir, image_props, img.name)
+  assert succ, "build cache.img image failed"
+
+  common.CheckSize(img.name, "cache.img", OPTIONS.info_dict)
+  output_zip.write(img.name, "cache.img")
+  img.close()
+  os.rmdir(user_dir)
+  os.rmdir(temp_dir)
 
 
 def CopyInfo(output_zip):
@@ -179,6 +229,14 @@ def main(argv):
   OPTIONS.input_tmp, input_zip = common.UnzipTemp(args[0])
   OPTIONS.info_dict = common.LoadInfoDict(input_zip)
 
+  # If this image was originally labelled with SELinux contexts, make sure we
+  # also apply the labels in our new image. During building, the "file_contexts"
+  # is in the out/ directory tree, but for repacking from target-files.zip it's
+  # in the root directory of the ramdisk.
+  if "selinux_fc" in OPTIONS.info_dict:
+    OPTIONS.info_dict["selinux_fc"] = os.path.join(OPTIONS.input_tmp, "BOOT", "RAMDISK",
+        "file_contexts")
+
   output_zip = zipfile.ZipFile(args[1], "w", compression=zipfile.ZIP_DEFLATED)
 
   common.GetBootableImage(
@@ -189,7 +247,9 @@ def main(argv):
 
   if not bootable_only:
     AddSystem(output_zip)
+    AddVendor(output_zip)
     AddUserdata(output_zip)
+    AddCache(output_zip)
     CopyInfo(output_zip)
 
   print "cleaning up..."
