@@ -50,6 +50,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:/system/lib/libidme.so
 
+# Recovery
+PRODUCT_COPY_FILES += \
+    $(DEVICE_FOLDER)/twrp.fstab:recovery/root/etc/twrp.fstab
+
 PRODUCT_PACKAGES += \
     sdcard \
     setup_fs
