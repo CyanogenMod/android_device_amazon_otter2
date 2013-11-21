@@ -22,9 +22,7 @@ DEVICE_FOLDER := device/amazon/otter2
 
 # Kernel
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_CMDLINE := mem=1G console=/dev/null
-# Uncomment for recovery build w/ stock kernel
-#BOARD_KERNEL_CMDLINE := init=/init vram=5M omapfb.vram=0:5M console=ttyO2,115200n8 androidboot.console=ttyO2 omap_wdt.timer_margin=30
+BOARD_KERNEL_CMDLINE := mem=1G console=/dev/null androidboot.selinux=permissive
 TARGET_BOOTLOADER_BOARD_NAME := otter2
 TARGET_OTA_ASSERT_DEVICE := blaze_tablet,otter2
 TARGET_KERNEL_SOURCE := kernel/amazon/otter-common
