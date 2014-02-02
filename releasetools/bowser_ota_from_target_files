@@ -475,7 +475,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   # FIX ME!!!
   print "For bowser we keep the boot.img as done by boot.mk"
   boot_img = common.File.FromLocalFile("boot.img", 
-                                       "out/target/product/otter2/boot.img")
+                                        os.environ.get('ANDROID_PRODUCT_OUT') + "/boot.img")
   #boot_img = common.GetBootableImage("boot.img", "boot.img",
   #                                   OPTIONS.input_tmp, "BOOT")
   #recovery_img = common.GetBootableImage("recovery.img", "recovery.img",
