@@ -31,5 +31,5 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 PRODUCT_NAME := full_otter2
 PRODUCT_DEVICE := otter2
 PRODUCT_BRAND := google
-PRODUCT_MODEL := Amazon Kindle Fire2
+PRODUCT_MODEL := Amazon Otter2
 PRODUCT_MANUFACTURER := android
