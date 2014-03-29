@@ -35,7 +35,9 @@ PRODUCT_COPY_FILES += \
 
 # Recovery Trigger / TS module/config
 PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
+    $(DEVICE_FOLDER)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh \
+    $(DEVICE_FOLDER)/rebootsystem.sh:recovery/root/sbin/rebootsystem.sh \
+    $(DEVICE_FOLDER)/prebuilt/bin/idme:recovery/root/sbin/idme
 
 # Prebuilt system/bin
 PRODUCT_COPY_FILES += \
@@ -50,6 +52,8 @@ PRODUCT_COPY_FILES += \
 # Prebuilt system/lib
 PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:/system/lib/libidme.so
+
+# Prebuilt sbin
 
 # Recovery
 PRODUCT_COPY_FILES += \
