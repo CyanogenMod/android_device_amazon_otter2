@@ -2,6 +2,6 @@
 
 PATH=/system/bin
 
-idme bootmode 7
+idme bootmode 3
 sync
 
