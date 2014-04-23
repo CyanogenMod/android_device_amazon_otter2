@@ -49,4 +49,5 @@ TARGET_RECOVERY_PRE_COMMAND := "/system/bin/pre-recovery.sh \#"
 # TWRP Config
 TW_INTERNAL_STORAGE_PATH := "/data/media"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
+TW_NO_REBOOT_RECOVERY := true
 RECOVERY_SDCARD_ON_DATA := true
