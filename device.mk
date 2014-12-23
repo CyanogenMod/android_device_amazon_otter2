@@ -32,11 +32,8 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/fstab.otter2:/root/fstab.omap4430 \
     $(DEVICE_FOLDER)/init.omap4430.rc:/root/init.omap4430.rc \
     $(DEVICE_FOLDER)/init.omap4430.usb.rc:/root/init.omap4430.usb.rc \
+    $(DEVICE_FOLDER)/init.recovery.omap4430.rc:/root/init.recovery.omap4430.rc \
     $(DEVICE_FOLDER)/ueventd.omap4430.rc:/root/ueventd.omap4430.rc
-
-# Recovery Trigger / TS module/config
-PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
 # Prebuilt system/bin
 PRODUCT_COPY_FILES += \
@@ -52,10 +49,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:/system/lib/libidme.so
 
-# Recovery
-PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/twrp.fstab:recovery/root/etc/twrp.fstab
-
 PRODUCT_PACKAGES += \
     sdcard \
     setup_fs
@@ -63,5 +56,8 @@ PRODUCT_PACKAGES += \
 # Device settings
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.usb.vid=1949 \
-    sys.usb.pid=000a
+    sys.usb.pid=000a \
+    usb.vendor=1949 \
+    usb.product.adb=000a \
+    usb.product.mtpadb=000a
 
