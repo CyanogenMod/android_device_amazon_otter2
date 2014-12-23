@@ -49,10 +49,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:/system/lib/libidme.so
 
-PRODUCT_PACKAGES += \
-    sdcard \
-    setup_fs
-
 # Device settings
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.usb.vid=1949 \
