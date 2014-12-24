@@ -43,7 +43,6 @@ BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_FOLDER)/boot.mk
 
 # hack the ota
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./$(COMMON_FOLDER)/releasetools/bowser_ota_from_target_files.py
-TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./$(COMMON_FOLDER)/releasetools/bowser_img_from_target_files.py
 TARGET_RELEASETOOL_MAKE_RECOVERY_PATCH_SCRIPT := ./$(COMMON_FOLDER)/releasetools/bowser_make_recovery_patch
 
 # Recovery
