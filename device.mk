@@ -50,7 +50,7 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/lib/libidme.so:/system/lib/libidme.so
 
 # Device settings
-PRODUCT_PROPERTY_OVERRIDES += \
+ADDITIONAL_BUILD_PROPERTIES += \
     sys.usb.vid=1949 \
     sys.usb.pid=000a \
     usb.vendor=1949 \
@@ -58,7 +58,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     usb.product.mtpadb=000a
 
 # Dalvik VM settings
-PRODUCT_PROPERTY_OVERRIDES += \
+ADDITIONAL_BUILD_PROPERTIES += \
     dalvik.vm.heapstartsize=8m \
     dalvik.vm.heapgrowthlimit=128m \
     dalvik.vm.heapsize=384m \
