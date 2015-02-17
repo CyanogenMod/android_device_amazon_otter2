@@ -21,7 +21,6 @@ DEVICE_PACKAGE_OVERLAYS += $(DEVICE_FOLDER)/overlay
 
 # Hardware HALs
 PRODUCT_PACKAGES += \
-    hwcomposer.otter2 \
     lights.otter2 \
     power.otter2 \
     audio.primary.otter2 \
