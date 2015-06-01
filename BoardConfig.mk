@@ -22,7 +22,7 @@ DEVICE_FOLDER := device/amazon/otter2
 
 # Kernel
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_KERNEL_CMDLINE := mem=1G androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := mem=1G
 TARGET_BOOTLOADER_BOARD_NAME := otter2
 TARGET_OTA_ASSERT_DEVICE := blaze_tablet,otter2
 
